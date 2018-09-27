@@ -27,7 +27,7 @@ var SendYoD = {
   sendMail: function (num, contents) {
     var today = new Date().toLocaleDateString("en-US");
     
-    var mailto = "yananob+notify_nobu@gmail.com";
+    var mailto = "ACCOUNT@HOST.COM";
     var title = "Yome of the Day";
     var contents = "No." + num
     + "<p>" + contents+ "</p>"
