@@ -1,10 +1,14 @@
+// Title: SendYoD - "Yome of the Day"を日々メールする
+// Description:
+// 「俺の嫁が可愛い」様 https://oreno-yome.com/ から、ランダムに選んだ投稿をメールします。
+
 var SendYoD = {
   APP_NAME: "sendYoD",
   
   MAX_NUMBER: 3100,
   BASE_URL: "https://oreno-yome.com/archives/",
   
-  RETRY_MAX_CNT: 10,
+  RETRY_MAX_CNT: 5,
   
   pageUrl: function (num) {
     return this.BASE_URL + num;
