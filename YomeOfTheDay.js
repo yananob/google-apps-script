@@ -23,9 +23,9 @@ var YomeOfTheDay = {
     }
     var contents = pages.getContentText();
     
-    contents = contents.replace(/[\s\S]+<article .+?>([\s\S]+)<\/article>[\s\S]+/m, '$1');
-    contents = contents.replace(/<div class='yuzo_related_post .+?'>[\s\S]+<\/div>/mg, '');
-    contents = contents.replace(/いいなと思ったら、「可愛いね」のボタンをクリックしてくださいね。/g, "");
+    contents = contents.replace(/[\s\S]+<article .+?>([\s\S]+)<\/article>[\s\S]+/m, "$1");
+    contents = contents.replace(/<aside class="p-related-posts .+?">[\s\S]+<\/aside>/mg, "");
+    contents = contents.replace(/いいなと思ったら、「可愛いね」のボタンをクリックしてくださいね。[\s\S]+/mg, "");
     
     contents = contents.replace(/<p.*?>/g, "\n");
     contents = contents.replace(/<[^>]+>/g, "");
@@ -38,9 +38,14 @@ var YomeOfTheDay = {
     
     var title = "Yome of the Day";
     var contents = "No." + num + "\n"
-    + contents+ "\n"
+    + contents + "\n"
     + this.pageUrl(num);
     
+//    MailApp.sendEmail({
+//      to: Consts.YomeOfTheDay_MAILTO,
+//      subject: title,
+//      htmlBody: contents
+//    });
     SendLINE.sendMessage(Consts.TARGET_NOBU, title + "\n" + contents);
   }
 }
@@ -52,8 +57,10 @@ function YomeOfTheDay_main() {
   var retry_cnt = 0;
   while (true) {
     var num = parseInt(Math.random() * YomeOfTheDay.MAX_NUMBER);
+    Logger.log(" id(" + num + ") was selected.");
     var contents = YomeOfTheDay.fetchDatas(num);
     if (contents != null) {
+      Logger.log("contents:  " + contents);
       break;
     }
     retry_cnt += 1;
@@ -61,7 +68,6 @@ function YomeOfTheDay_main() {
       break;
     }
   }
-  Logger.log(" id(" + num + ") was selected.");
   
   YomeOfTheDay.send(num, contents);
   
