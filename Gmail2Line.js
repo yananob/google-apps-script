@@ -5,7 +5,7 @@ var Gmail2Line = {
     for (j in contents) {
       cont = contents[j];
       if (cont["remove"]) {
-        Logger.log("removing " + cont["remove"]);
+        Logger.log(`removing ${cont["remove"]}`);
         var re = new RegExp(cont["remove"], "m");
         target_str = target_str.replace(re, '');
       }
@@ -16,17 +16,17 @@ var Gmail2Line = {
   
   execute: function (condition, target, modifications) {
     var today = new Date();
-    target_date = today.getYear() + "/" + (today.getMonth() + 1) + "/" + (today.getDate() - 1);
+    let target_date = `${today.getFullYear()}/${(today.getMonth() + 1)}/${(today.getDate() - 1)}`;
     
     kw = condition["keyword"];
     if (condition["label"].length > 0) {
-      kw += " label:" + condition["label"];
+      kw += ` label:${condition["label"]}`;
     }
     if (condition["unread_only"]) {
       kw += " is:unread";
     }
-    kw += " after:" + target_date;
-    Logger.log("  search keyword: [" + kw + "]");
+    kw += ` after:${target_date}`;
+    Logger.log(`Searching /w keyword: [${kw}]`);
     
     var threads = GmailApp.search(kw, 0, condition["thread_count"]);
     for (var n in threads) {
@@ -47,7 +47,7 @@ var Gmail2Line = {
         if (modifications) {
           for (i in modifications) {
             mod = modifications[i];
-            Logger.log("processing " + mod["title"]);
+            Logger.log(`processing ${mod["title"]}`);
             if (mod["title"] && subject == mod["title"]) {
               body = Gmail2Line.replace(body, mod["contents"]);
             }
@@ -58,7 +58,7 @@ var Gmail2Line = {
             }
           }
         }
-        msgTxt = subject + "\n" + body;
+        msgTxt = `${subject}\n${body}`;
         SendLINE.sendMessage(target, msgTxt);
         msg.markRead();
         return;
@@ -98,6 +98,9 @@ function Gmail2Line_main() {
           "contents": [
             {
               "remove": "[－]+\\nこのメールには返信しないでください。もしも、このメールが覚えのないも\\nのでしたら、お手数ですが下記の図書館までご連絡ください。\\n[－]+",
+            },
+            {
+              "remove": "最新の開館状況やご利用いただけるサービス内容は、図書館ホームページでご確認ください。\\n図書館のホームページ https://www.oml.city.osaka.lg.jp/",
             },
             {
               "remove": "受取館：阿倍野図書館　TEL06-6656-1009\\n[\\S\\s]+"
