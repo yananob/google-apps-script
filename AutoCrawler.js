@@ -1,7 +1,7 @@
 // Title:
 //   AutoCrawler - 指定URLを自動で叩く
 // Description:
-//   指定したURLを自動で叩く
+//   指定したURLを自動で叩く（取得する）。タイマーなどにセットして使う想定です。
 
 var AutoCrawler = {
   APP_NAME: "autoCrawler",

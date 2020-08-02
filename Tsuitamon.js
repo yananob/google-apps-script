@@ -1,3 +1,10 @@
+// Title:
+//   Tsuitamon
+// Description:
+//   Send LINE from Tsuitamon message (Tsuitamon: https://tsuitamon.jp/)
+// Premise:
+//   - Send only weekday (Mon-Fri) and in daytime (7:00-19:00)
+
 var Tsuitamon = {
   IS_DEBUG: false,
   APP_NAME: "Tsuitamon",

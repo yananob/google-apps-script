@@ -1,3 +1,9 @@
+// Title:
+//   Gmail2Line
+// Description:
+//   Gmailに到着したメールを、フィルタに応じて、加工したのち、LINEで送ります。
+//   フィルタや加工の設定は、Gmail2Line_main.SETTINGS で行います。
+
 var Gmail2Line = {
   APP_NAME: "Gmail2Line",
   

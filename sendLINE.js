@@ -1,9 +1,10 @@
 // Title:
-//   sendLINE - （共通モジュール）LINE送信する
+//   sendLINE - (common module) send LINE mssage
 // Description:
-//   指定したtargetに対して、LINEでメッセージ送信する
-//   前提:
-//     - LINE Notify https://notify-bot.line.me/ja/ でTOKENを取得していること
+//   Send LINE message for specified target
+// Premise:
+//   - Already acquired OKEN at LINE Notify https://notify-bot.line.me/ja/
+//   - Need setting values in myconsts.js
 
 var SendLINE = {
 

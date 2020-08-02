@@ -1,3 +1,10 @@
+// Title:
+//   WatchIijmioUsage
+// Description:
+//   Check iijmio data usage, and send the result via LINE
+//   - Need setting values in myconsts.js
+//   - Supporting "Family pack"
+
 var WatchIijmioUsage = {
   APP_NAME: "WatchIijmioUsage",
   IS_DEBUG: false,
@@ -18,7 +25,6 @@ var WatchIijmioUsage = {
     
     var today = Utilities.formatDate(new Date(), "JST+9", "yyyyMMdd");
     var today_day = parseInt(today.substring(6, 8), 10);
-    // Logger.log(" today: " + today + ", (" + today.substring(6, 8) + ")");
     var packetLogInfos = resp.packetLogInfo;
     var datas = {};
     

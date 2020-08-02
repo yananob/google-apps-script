@@ -1,3 +1,8 @@
+// Title:
+//   MessageOfTheDay
+// Description:
+//  Pickup message randomly and send by LINE
+
 var MessageOfTheDay = {
   APP_NAME: "MessageOfTheDay",
 
@@ -18,7 +23,6 @@ No.${datas[0][0]}
 ${datas[0][1]}
 [${datas[0][2]}] ${datas[0][3]} ${datas[0][4]}`;
     SendLINE.sendMessage(Consts.TARGET_BERG, msg);
-    // SendLINE.sendMessage(Consts.TARGET_NOBU, msg);
   }
 }
 

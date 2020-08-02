@@ -1,3 +1,8 @@
+// Title:
+//   SendVoiceByAutoRemote
+// Description:
+//   Send message via AutoRemote
+
 var SendVoiceByAutoRemote = {
     IS_DEBUG: false,
     APP_NAME: "sendAutoRemote",

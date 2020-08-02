@@ -1,7 +1,7 @@
 // Title:
-//   SendYoD - "Yome of the Day"を日々メールする
+//   SendYoD - "Yome of the Day"をLINE送信する
 // Description:
-//   「俺の嫁が可愛い」様 https://oreno-yome.com/ から、ランダムに選んだ投稿をメールします。
+//   「俺の嫁が可愛い」様 https://oreno-yome.com/ からランダムに選んだ投稿を、LINEで送信します。
 
 var YomeOfTheDay = {
   APP_NAME: "yomeOfTheDay",
