@@ -1,4 +1,4 @@
-# google_apps_script
+# My Google Apps Scripts for hack life
 
 ## How to use
 1. Copy and rename to "myconsts.js"
