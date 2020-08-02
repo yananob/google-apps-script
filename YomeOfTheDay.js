@@ -36,17 +36,12 @@ var YomeOfTheDay = {
   send: function (num, contents) {
     var today = new Date().toLocaleDateString("en-US");
     
-    var title = "Yome of the Day";
-    var contents = "No." + num + "\n"
-    + contents + "\n"
-    + this.pageUrl(num);
+    let msg = `Yome of the Day
+No.${num}
+${contents}
+${this.pageUrl(num)}`;
     
-//    MailApp.sendEmail({
-//      to: Consts.YomeOfTheDay_MAILTO,
-//      subject: title,
-//      htmlBody: contents
-//    });
-    SendLINE.sendMessage(Consts.TARGET_NOBU, title + "\n" + contents);
+    SendLINE.sendMessage(Consts.TARGET_NOBU, msg);
   }
 }
 

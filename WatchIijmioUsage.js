@@ -12,16 +12,16 @@ var WatchIijmioUsage = {
     check: function () {
       var resp = JSON.parse(SendIijmio.sendRest());
       if (this.IS_DEBUG) {
-        Logger.log("Resp: " + resp);
+      Logger.log(`Resp: ${resp}`);
       }
       if (resp.returnCode != "OK") {
-        Logger.log("[ERROR] Response error. [" + resp + "]");
+      Logger.log(`[ERROR] Response error. [${resp}]`);
         return;
       }
       
       var today = Utilities.formatDate(new Date(), "JST+9", "yyyyMMdd");
       var today_day = parseInt(today.substring(6, 8), 10);
-      Logger.log(" today: " + today + ", (" + today.substring(6, 8) + ")");
+    // Logger.log(" today: " + today + ", (" + today.substring(6, 8) + ")");
       var packetLogInfos = resp.packetLogInfo;
       var datas = {};
       
@@ -43,29 +43,34 @@ var WatchIijmioUsage = {
       // Calculate usage
       var monthUsage = 0;
       var todayUsage = 0;
-      var msg = '\Mobile usage [' + today + ']\n';
-      msg += 'Today:\n'; 
+    var todayMsg = "";
       for (var hdoServiceCode in datas) {
-        msg += '  ' + this.USERS[hdoServiceCode] + ': ' + datas[hdoServiceCode][today] + 'MB\n';
+      todayMsg += `  ${this.USERS[hdoServiceCode]}: ${datas[hdoServiceCode][today]}MB\n`;
         todayUsage += parseInt(datas[hdoServiceCode][today]);
         for (var dt in datas[hdoServiceCode]) {
           monthUsage += parseInt(datas[hdoServiceCode][dt]);
         }
       }
-      msg += '  Total: ' + todayUsage + 'MB\n';
       
-      msg += 'This month:\n';
-      msg += '  Now: ' + monthUsage + 'MB  (' + this.getUsageRate(monthUsage) + '%)\n';
       var estimateMB = parseInt(monthUsage * 31 / today_day);
       var estimateRate = this.getUsageRate(estimateMB);
-      msg += '  Estimate: ' + estimateMB + 'MB  (' + estimateRate + '%)';
-      
-      Logger.log(msg);
+    let notify = "";
       if (estimateRate > 100) {
-        msg = "\n[WARN] Mobile usage is not good.\n" + msg;
+      notify = "[WARN] Mobile usage is not good";
       } else {
-        msg = "\n[INFO] Mobile usage report:\n" + msg;
+      notify = "[INFO] Mobile usage report";
       }
+
+    let msg = `${notify}
+Today [${today}]
+${todayMsg}
+  Total: ${todayUsage}MB
+
+This month:
+  Now: ${monthUsage}MB  (${this.getUsageRate(monthUsage)}%)
+  Estimate: ${estimateMB}MB  (${estimateRate}%)
+`    
+    Logger.log(msg);
       if ((estimateRate > 100) || (today_day % 10 == 0)) {
         SendLINE.sendMessage(Consts.TARGET_NOBU, msg);
       }
@@ -74,11 +79,11 @@ var WatchIijmioUsage = {
   
   function WatchIijmioUsage_main() {
     Logger.clear();
-    Logger.log("--- " + WatchIijmioUsage.APP_NAME + " start.");
+  Logger.log(`--- ${WatchIijmioUsage.APP_NAME} start.`);
     
     WatchIijmioUsage.check();
     
-    Logger.log("--- " + WatchIijmioUsage.APP_NAME + " end.");
+  Logger.log(`--- ${WatchIijmioUsage.APP_NAME} end.`);
     
     if (WatchIijmioUsage.IS_DEBUG) {
       sendLog_(WatchIijmioUsage.APP_NAME);
